@@ -257,7 +257,8 @@ void allclass(student x, student x2, student x3, int number_of_data, int number_
 {
      
     int samestudent = 0;
-    bool file1, file2;
+    //boolean values to check if there is an student that is the same
+    bool file2, file3;
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
@@ -276,7 +277,7 @@ void allclass(student x, student x2, student x3, int number_of_data, int number_
 
             }
         }
-        if ((file1 = true) && (file2 = true))
+        if ((file2 = true) && (file3 = true))
         {
             samestudent++;
         }
