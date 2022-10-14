@@ -9,15 +9,14 @@ using namespace std;
 class student
 {
 public:
+    // Constructors
     student();
     student(int number_of_data);
-
+    // Access writes file data to class data
     void accessfile(char filename[20], int& number_of_data, student x);
-
+    // Prints out the list of classes
     void classlist(student x, int number_of_data);
- 
-    
-
+    //functions for finding students with the highest scores
     friend void topscores(student x, int number_of_data);
     friend void topscores(student x, student x2, int number_of_data, int number_of_data2);
     friend void topscores(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
