@@ -255,16 +255,33 @@ void topscores(student x, int number_of_data)
 
 void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3)
 {
-    /*
-    int size = 50;
-    for (int i = 0; i < size; i++)
+     
+    int samestudent = 0;
+    bool file1, file2;
+    for (int i = 0; i < number_of_data; i++)
     {
-        for (int j = 0; size - i; j++)
+        // checks 2nd array for students
+        for (int j = 0; j < number_of_data2; j++)
         {
-            if()
+            if (x.name[i] == x2.name[j])
+            {
+                
+            }
+        }
+        // checks third array
+        for (int k = 0; k < number_of_data3; k++)
+        {
+            if(x.name[i] == x2.name[k])
+            {
+
+            }
+        }
+        if ((file1 = true) && (file2 = true))
+        {
+            samestudent++;
         }
     }
-    */
+    
 }
 
 void student::classlist(student x,int number_of_data)
