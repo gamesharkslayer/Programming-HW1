@@ -24,7 +24,7 @@ public:
     friend void twoclass(student x, int number_of_data);
     friend void twoclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void twoclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
-    //Function for finding studen that have taken all classes
+    //Function for finding students that have taken all classes
     friend void allclass(student x, int number_of_data);
     friend void allclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
@@ -59,12 +59,16 @@ int topscore();
 
 int main()
 {
+    // Initalises the needed variables
     int numberofcourses, number_of_data, number_of_data2, number_of_data3;
     int name;
+    // Creates objects for files
     student file1, file2, file3;
+    // Enter the number of courses
     cout << "Enter the number of courses: ";
     cin >> numberofcourses;
     cout << endl;
+
     ifstream infile;
     if (numberofcourses == 1)
     {
@@ -138,6 +142,7 @@ int main()
     else 
     {
         cout << "Please Enter A valid filename or number of classes";
+        return 0;
     }
    
     int menunum = 1;
