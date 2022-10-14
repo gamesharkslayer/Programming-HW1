@@ -20,11 +20,11 @@ public:
     friend void topscores(student x, int number_of_data);
     friend void topscores(student x, student x2, int number_of_data, int number_of_data2);
     friend void topscores(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
-
+    //Function for finding students that taken two classes
     friend void twoclass(student x, int number_of_data);
     friend void twoclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void twoclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
-
+    //Function for finding studen that have taken all classes
     friend void allclass(student x, int number_of_data);
     friend void allclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
