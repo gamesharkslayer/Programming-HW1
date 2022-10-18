@@ -13,34 +13,30 @@ public:
     student();
     student(int number_of_data);
     // Access writes file data to class data
-    void accessfile(char filename[20], int& number_of_data, student x);
+    void accessfile(char filename[20], int& number_of_data, student* file, course& filecour);
     // Prints out the list of classes
-    void classlist(student x, int number_of_data);
+    void classlist(student x, int number_of_data, course& filecou);
     //functions for finding students with the highest scores
-    friend void topscores(student x, int number_of_data);
-    friend void topscores(student x, student x2, int number_of_data, int number_of_data2);
-    friend void topscores(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
+    friend void topscores(student file, int number_of_data, course cour);
     //Function for finding students that taken two classes
     friend void twoclass(student x, int number_of_data);
     friend void twoclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void twoclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
     //Function for finding students that have taken all classes
-    friend void allclass(student x, int number_of_data);
-    friend void allclass(student x, student x2, int number_of_data, int number_of_data2);
-    friend void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
+    friend void allclass(student file, int number_of_data);
+    friend void allclass(student file, student file2, int number_of_data, int number_of_data2);
+    friend void allclass(student file, student file2, student file3, int number_of_data, int number_of_data2, int number_of_data3);
 private:
     //Only one student per class
-    int* id;
-    string* name;
-    int* score;
-    string* course;
+    int id;
+    string name;
+    int score;
+   
 };
 
 struct course {
-    int* cpptest;
-    int* javatest;
-    int* pythontest;
-    string* stuname;
+    int size;
+    string courname;
 };
 
 student* accessfile(char filename[20], int number_of_data);
@@ -55,7 +51,8 @@ int main()
     int numberofcourses, number_of_data, number_of_data2, number_of_data3;
     int name;
     // Creates objects for files
-    student file1, file2, file3;
+    student* file1, *file2, *file3;
+    course courfile1, courfile2, courfile3;
     // Enter the number of courses
     cout << "Enter the number of courses: ";
     cin >> numberofcourses;
@@ -71,8 +68,8 @@ int main()
        
         infile.open(filename);
         infile >> name >> number_of_data;
-        
-        file1.accessfile(filename, number_of_data, file1);
+        student* file1 = new student[number_of_data];
+        file1->accessfile(filename, number_of_data, file1, courfile1);
         infile.close();
     }
     else if (numberofcourses == 2)
@@ -84,8 +81,8 @@ int main()
      
         infile.open(filename);
         infile >> name >> number_of_data;
-    
-        file1.accessfile(filename, number_of_data, file1);
+        student* file1 = new student[number_of_data];
+        file1->accessfile(filename, number_of_data, file1, courfile1);
         infile.close();
 
         char filename2[20];
@@ -94,8 +91,8 @@ int main()
         
         infile.open(filename2);
         infile >> name >> number_of_data2;
-      
-        file2.accessfile(filename2, number_of_data2, file2);
+        student* file2 = new student[number_of_data2];
+        file2->accessfile(filename2, number_of_data2, file2, courfile2);
         infile.close();
     }
     else if (numberofcourses == 3)
@@ -107,8 +104,8 @@ int main()
        
         infile.open(filename);
         infile >> name >> number_of_data;
-   
-        file1.accessfile(filename, number_of_data, file1);
+        student* file1 = new student[number_of_data];
+        file1->accessfile(filename, number_of_data, file1, courfile1);
         infile.close();
 
         char filename2[20];
@@ -117,8 +114,8 @@ int main()
        
         infile.open(filename2);
         infile >> name >> number_of_data2;
-      
-        file2.accessfile(filename2, number_of_data2, file2);
+        student* file2 = new student[number_of_data2];
+        file2->accessfile(filename2, number_of_data2, file2, courfile2);
         infile.close();
 
         char filename3[20];
@@ -127,8 +124,8 @@ int main()
         
         infile.open(filename3);
         infile >> name >> number_of_data3;
-     
-        file3.accessfile(filename3, number_of_data3, file3);
+        student* file3 = new student[number_of_data3];
+        file3->accessfile(filename3, number_of_data3, file3, courfile3);
         infile.close();
     }
     else 
@@ -145,7 +142,7 @@ int main()
         cout << "2. list of students who take all courses" << endl;
         cout << "3. list of student who take two courses" << endl;
         cout << "4. Print out top three scores for each course" << endl;
-        cout << "9. Exit program" << endl;
+        cout << "5. Exit program" << endl;
         cout << "---> select: ";
         cin >> menunum;
 
@@ -153,18 +150,18 @@ int main()
         {
             if (numberofcourses == 1)
             {
-                file1.classlist(file1, number_of_data);
+                file1->classlist(file1, number_of_data, courfile1);
             }
             else if (numberofcourses == 2)
             {
-                file1.classlist(file1, number_of_data);
-                file2.classlist(file2, number_of_data2);
+                file1->classlist(file1, number_of_data, courfile1);
+                file2.classlist(file2, number_of_data2, courfile2);
             }
             else if (numberofcourses == 3)
             {
-                file1.classlist(file1, number_of_data);
-                file2.classlist(file2, number_of_data2);
-                file3.classlist(file3, number_of_data3);
+                file1.classlist(file1, number_of_data, courfile1);
+                file2.classlist(file2, number_of_data2, courfile2);
+                file3.classlist(file3, number_of_data3, courfile3);
             }
         }
 
@@ -199,95 +196,103 @@ int main()
 }
 student::student() 
 {
-    id = new int[100];
-    score = new int[100];
-    name = new string[100];
-    course = new string[1];
-}
-student::student(int number_of_data)
-{
-    id = new int[number_of_data];
-    score = new int[number_of_data];
-    name = new string[number_of_data];
-    course = new string[1];
-   
+    id = 0;
+    score = 0;
+    name = "";
+  
 }
 
-void topscores(student x, int number_of_data)
+
+void topscores(student* file, int number_of_data, course cour)
 {
     for (int step = 0; step < number_of_data; ++step) {
 
         // compare array elements
-        for (int i = 0; i < number_of_data - step; ++i) {
+        for (int* i = 0; i < number_of_data - step; ++i) {
 
             // comparing the two adjacent elements
-            if (x.score[i] < x.score[i + 1]) {
+            if (file[i].score < file[i+1].score) {
 
                 // swap
-                int temp = x.score[i];
-                x.score[i] = x.score[i + 1];
-                x.score[i + 1] = temp;
+                int temp = file[i].score;
+                file[i].score = file[i + 1].score;
+                file[i + 1].score = temp;
             }
         }
         
     }
+    cout << "[ " << cour.courname << " Top Three Scores ]";
     for (int count = 0; count < 3; count++)
     {
-        if (x.score[count] == x.score[count + 1])
-        {
-        cout << x.score[count] << " " << x.name[count] << endl;
-        cout << x.score[count + 1] << " " << x.name[count + 1] << endl;
-        count++;
-        }
-        cout << x.score[count] << " " << x.name[count] << endl;
+        int i = 0;
+        cout << count << ". " << file[i].score << endl;
+        cout << "      " << file[i].id << "     " << file[i].name;
+        i++;
     }
 }
 
-void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3)
+void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3)
 {
      
     int samestudent = 0;
-    student same;
+    int biggestclass = number_of_data;
+    if (number_of_data < number_of_data2)
+    {
+        biggestclass = number_of_data2;
+    }
+    else if (number_of_data2 < number_of_data3)
+    {
+        biggestclass = number_of_data3;
+    }
+    student* same = new student[biggestclass];
     //boolean values to check if there is an student that is the same
-    bool file2, file3;
+    bool file2nd, file3rd;
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
         for (int j = 0; j < number_of_data2; j++)
         {
-            if (x.name[i] == x2.name[j])
+            if (file[i].name == file2[j].name)
             {
-                
+                file2nd = true;
             }
         }
         // checks third array
         for (int k = 0; k < number_of_data3; k++)
         {
-            if(x.name[i] == x2.name[k])
+            if(file[i].name == file2[k].name)
             {
-
+                file3rd = true;
             }
         }
-        if ((file2 = true) && (file3 = true))
+        if ((file2nd = true) && (file3rd = true))
         {
+            same[i].name = file[i].name;
+            same[i].id = file[i].id;
             samestudent++;
         }
     }
-    
+    //Displays all sutdents
+    cout << "There are " << samestudent << " students who take all courses" << endl;
+    cout << "---------------------------------------------------------";
+    for (int i = 0; i < samestudent; i++)
+    {
+        cout << same[i].id << "  " << same[i].name << endl;
+    }
 }
 
-void student::classlist(student x,int number_of_data)
+void student::classlist(student* file,int number_of_data,course& filecou)
 {
-    cout << "Course:" << x.course[0] << endl;
+    cout << "Course:" << filecou.courname << endl;
     cout << "-----------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
     {
-        cout << x.id[i] << "    " << x.name[i] << "        " << x.score[i] << endl;
+        cout << file[i].id << "    " << file[i].name << "        " << file[i].score << endl;
     }
     cout << "======================" << endl;
     
 }
-void student::accessfile(char filename[20], int& number_of_data, student x)
+void student::accessfile(char filename[20], int& number_of_data, student* file, course& filecour)
 {
 
 
@@ -302,7 +307,7 @@ void student::accessfile(char filename[20], int& number_of_data, student x)
     int temp;
 
     infile >> tempclass >> temp;
-    x.course[0] = tempclass;
+    filecour.courname = tempclass;
     
     int i = 0;
     int idfile, scorefile;
@@ -310,9 +315,9 @@ void student::accessfile(char filename[20], int& number_of_data, student x)
     while (!infile.eof())
     {
         infile >> idfile >> namefile >> scorefile; //inputs variables from file
-        x.id[i] = idfile;
-        x.name[i] = namefile;
-        x.score[i] = scorefile;
+        file[i].id = idfile;
+        file[i].name = namefile;
+        file[i].score = scorefile;
         i++;
     }
     number_of_data = i;
