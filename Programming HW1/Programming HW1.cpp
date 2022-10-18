@@ -29,6 +29,7 @@ public:
     friend void allclass(student x, student x2, int number_of_data, int number_of_data2);
     friend void allclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
 private:
+    //Only one student per class
     int* id;
     string* name;
     int* score;
@@ -216,15 +217,13 @@ void topscores(student x, int number_of_data)
 {
     for (int step = 0; step < number_of_data; ++step) {
 
-        // loop to compare array elements
+        // compare array elements
         for (int i = 0; i < number_of_data - step; ++i) {
 
-            // compare two adjacent elements
-            // change > to < to sort in descending order
+            // comparing the two adjacent elements
             if (x.score[i] < x.score[i + 1]) {
 
-                // swapping elements if elements
-                // are not in the intended order
+                // swap
                 int temp = x.score[i];
                 x.score[i] = x.score[i + 1];
                 x.score[i + 1] = temp;
