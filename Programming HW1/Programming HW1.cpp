@@ -36,21 +36,12 @@ private:
 };
 
 struct course {
-    string cpp;
-    int cppsize;
-    string java;
-    int javasize;
-    string python;
-    int pythonsize;
+    int* cpptest;
+    int* javatest;
+    int* pythontest;
+    string* stuname;
 };
-/*
-struct student
-{
-    string name;
-    int id;
-    int score;
-};
-*/
+
 student* accessfile(char filename[20], int number_of_data);
 int allcourselist();
 int twocourse();
@@ -257,6 +248,7 @@ void allclass(student x, student x2, student x3, int number_of_data, int number_
 {
      
     int samestudent = 0;
+    student same;
     //boolean values to check if there is an student that is the same
     bool file2, file3;
     for (int i = 0; i < number_of_data; i++)
@@ -326,57 +318,3 @@ void student::accessfile(char filename[20], int& number_of_data, student x)
     }
     number_of_data = i;
 }
-/*
-student* accessfile(char filename[20], int* number_of_data)
-{
-    ifstream infile;
-    infile.open("text.txt");
-    if (infile.fail()) { // checks for file opening
-        cout << "Input file opening filed." << endl;
-        exit(1);
-    }
-
-    student* current;
-    current = new struct student[20];
-
-    int count, id, score;
-    string name;
-    count = 0;
-    while (!infile.eof())
-    {
-
-        infile >> id >> name >> score; //inputs variables from file
-        current[count].id = id;
-        current[count].name = name;
-        current[count].score = score;
-        count++;
-
-    }
-    *number_of_data = count;
-    return current;
-}
-int topscore()
-{
-    // Decalres max variable and checks it
-    int max = 0;
-    for (int j = 0; j < i; j++)
-    {
-        if (list[j].scores > max)
-        {
-            max = list[j].scores;
-        }
-    }
-
-    cout << "The max score is: " << max << endl;
-    cout << "------------------" << endl;
-    // Goes through the array and looks for the students with max scores
-    for (int y = 0; y < i; y++)
-    {
-        if (max == list[y].scores)
-        {
-            cout << list[y].id << "  " << list[y].name << " " << list[y].scores << endl;
-        }
-    }
-
-}
-*/
