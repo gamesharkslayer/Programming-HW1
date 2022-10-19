@@ -11,7 +11,14 @@ class student
 public:
     // Constructors
     student();
-    student(int number_of_data);
+    student(int i, string n, int s);
+    void setscore(int s);
+    void setId(int i);
+    void setname(string n);
+    int getId();
+    string getName();
+    int getscore();
+    /*
     // Access writes file data to class data
     void accessfile(char filename[20], int& number_of_data, student* file, course& filecour);
     // Prints out the list of classes
@@ -26,6 +33,7 @@ public:
     friend void allclass(student file, int number_of_data);
     friend void allclass(student file, student file2, int number_of_data, int number_of_data2);
     friend void allclass(student file, student file2, student file3, int number_of_data, int number_of_data2, int number_of_data3);
+*/
 private:
     //Only one student per class
     int id;
@@ -39,11 +47,8 @@ struct course {
     string courname;
 };
 
-student* accessfile(char filename[20], int number_of_data);
-int allcourselist();
-int twocourse();
-int topscore();
-
+student* accessfile(char filename[20], int& number_of_data, course& filecour);
+void classlist(student* file, int number_of_data, course& filecou);
 
 int main()
 {
@@ -51,7 +56,7 @@ int main()
     int numberofcourses, number_of_data, number_of_data2, number_of_data3;
     int name;
     // Creates objects for files
-    student* file1, *file2, *file3;
+    student* file1(), * file2(), * file3();
     course courfile1, courfile2, courfile3;
     // Enter the number of courses
     cout << "Enter the number of courses: ";
@@ -69,7 +74,7 @@ int main()
         infile.open(filename);
         infile >> name >> number_of_data;
         student* file1 = new student[number_of_data];
-        file1->accessfile(filename, number_of_data, file1, courfile1);
+        file1 = accessfile(filename, number_of_data, courfile1);
         infile.close();
     }
     else if (numberofcourses == 2)
@@ -82,7 +87,7 @@ int main()
         infile.open(filename);
         infile >> name >> number_of_data;
         student* file1 = new student[number_of_data];
-        file1->accessfile(filename, number_of_data, file1, courfile1);
+        file1 = accessfile(filename, number_of_data, courfile1);
         infile.close();
 
         char filename2[20];
@@ -92,7 +97,7 @@ int main()
         infile.open(filename2);
         infile >> name >> number_of_data2;
         student* file2 = new student[number_of_data2];
-        file2->accessfile(filename2, number_of_data2, file2, courfile2);
+        file2 = accessfile(filename2, number_of_data2, courfile2);
         infile.close();
     }
     else if (numberofcourses == 3)
@@ -105,7 +110,7 @@ int main()
         infile.open(filename);
         infile >> name >> number_of_data;
         student* file1 = new student[number_of_data];
-        file1->accessfile(filename, number_of_data, file1, courfile1);
+        file1 = accessfile(filename, number_of_data, courfile1);
         infile.close();
 
         char filename2[20];
@@ -115,7 +120,7 @@ int main()
         infile.open(filename2);
         infile >> name >> number_of_data2;
         student* file2 = new student[number_of_data2];
-        file2->accessfile(filename2, number_of_data2, file2, courfile2);
+        file2 = accessfile(filename2, number_of_data2, courfile2);
         infile.close();
 
         char filename3[20];
@@ -125,7 +130,7 @@ int main()
         infile.open(filename3);
         infile >> name >> number_of_data3;
         student* file3 = new student[number_of_data3];
-        file3->accessfile(filename3, number_of_data3, file3, courfile3);
+        file3 =accessfile(filename3, number_of_data3, courfile3);
         infile.close();
     }
     else 
@@ -150,18 +155,18 @@ int main()
         {
             if (numberofcourses == 1)
             {
-                file1->classlist(file1, number_of_data, courfile1);
+                classlist(file1, number_of_data, courfile1);
             }
             else if (numberofcourses == 2)
             {
-                file1->classlist(file1, number_of_data, courfile1);
-                file2.classlist(file2, number_of_data2, courfile2);
+               // classlist(file1, number_of_data, courfile1);
+                //classlist(file2, number_of_data2, courfile2);
             }
             else if (numberofcourses == 3)
             {
-                file1.classlist(file1, number_of_data, courfile1);
-                file2.classlist(file2, number_of_data2, courfile2);
-                file3.classlist(file3, number_of_data3, courfile3);
+                //classlist(file1, number_of_data, courfile1);
+                //classlist(file2, number_of_data2, courfile2);
+                //classlist(file3, number_of_data3, courfile3);
             }
         }
 
@@ -178,7 +183,9 @@ int main()
         {
             if (numberofcourses == 1)
             {
+                /*
                 topscores(file1, number_of_data);
+                */
             }
             if (numberofcourses == 2)
             {
@@ -186,7 +193,9 @@ int main()
             }
             if (numberofcourses == 3)
             {
+                /*
                 topscores(file1, number_of_data);
+                */
             }
         }
     }
@@ -201,8 +210,37 @@ student::student()
     name = "";
   
 }
+student::student(int i, string n, int s)
+{
+    id = i;
+    score = s;
+    name = n;
+}
 
-
+void student::setscore(int s)
+{
+    score = s;
+}
+void student::setId(int i)
+{
+    id = i;
+}
+void student::setname(string n)
+{
+    name = n;
+}
+int student::getId()
+{
+    return id;
+}
+string student::getName()
+{
+    return name;
+}
+int student::getscore()
+{
+    return score;
+}/*
 void topscores(student* file, int number_of_data, course cour)
 {
     for (int step = 0; step < number_of_data; ++step) {
@@ -230,7 +268,7 @@ void topscores(student* file, int number_of_data, course cour)
         i++;
     }
 }
-
+*/
 void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3)
 {
      
@@ -252,7 +290,7 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
         // checks 2nd array for students
         for (int j = 0; j < number_of_data2; j++)
         {
-            if (file[i].name == file2[j].name)
+            if (file->getName() == file2->getName())
             {
                 file2nd = true;
             }
@@ -260,16 +298,18 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
         // checks third array
         for (int k = 0; k < number_of_data3; k++)
         {
-            if(file[i].name == file2[k].name)
+            if(file->getName() == file3->getName())
             {
                 file3rd = true;
             }
         }
         if ((file2nd = true) && (file3rd = true))
         {
-            same[i].name = file[i].name;
-            same[i].id = file[i].id;
+            same->setname(file->getName());
+            same->setId(file->getId()) ;
             samestudent++;
+            file2nd = false;
+            file3rd = false;
         }
     }
     //Displays all sutdents
@@ -277,25 +317,26 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
     cout << "---------------------------------------------------------";
     for (int i = 0; i < samestudent; i++)
     {
-        cout << same[i].id << "  " << same[i].name << endl;
+        cout << same->getId()<< "  " << same->getName() << endl;
     }
 }
 
-void student::classlist(student* file,int number_of_data,course& filecou)
+void classlist(student* file, int number_of_data, course& filecou)
 {
     cout << "Course:" << filecou.courname << endl;
     cout << "-----------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
     {
-        cout << file[i].id << "    " << file[i].name << "        " << file[i].score << endl;
+        
+            cout << file[i].getId() << "    " << file[i].getName() << "        " << file[i].getscore() << endl;
     }
     cout << "======================" << endl;
     
 }
-void student::accessfile(char filename[20], int& number_of_data, student* file, course& filecour)
+student* accessfile(char filename[20], int& number_of_data, course& filecour)
 {
-
-
+    student* file;
+    file = new student[number_of_data];
     ifstream infile;
     infile.open(filename);
     if (infile.fail()) { // checks for file opening
@@ -315,10 +356,12 @@ void student::accessfile(char filename[20], int& number_of_data, student* file, 
     while (!infile.eof())
     {
         infile >> idfile >> namefile >> scorefile; //inputs variables from file
-        file[i].id = idfile;
-        file[i].name = namefile;
-        file[i].score = scorefile;
+        
+        file[i].setId(idfile);
+        file[i].setname(namefile);
+        file[i].setscore(scorefile);
         i++;
     }
     number_of_data = i;
+    return file;
 }
