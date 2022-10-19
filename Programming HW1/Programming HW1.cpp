@@ -50,6 +50,7 @@ struct course {
 student* accessfile(char filename[20], int& number_of_data, course& filecour);
 void classlist(student* file, int number_of_data, course& filecou);
 void topscores(student* file, int number_of_data, course cour);
+void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3,course cour1,course cour2,course cour3);
 int main()
 {
     // Initalises the needed variables
@@ -180,7 +181,9 @@ int main()
 
         if (menunum == 2)
         {
-
+            if (numberofcourses == 3) {
+               allclass(file1, file2, file3, number_of_data, number_of_data2, number_of_data3, courfile1, courfile2, courfile3);
+            }
         }
 
         if (menunum == 3)
@@ -197,13 +200,16 @@ int main()
             }
             if (numberofcourses == 2)
             {
-               // topscores();
+                topscores(file1, number_of_data, courfile1);
+                topscores(file2, number_of_data2, courfile2);
             }
             if (numberofcourses == 3)
             {
-                /*
-                topscores(file1, number_of_data);
-                */
+                
+                topscores(file1, number_of_data, courfile1);
+                topscores(file2, number_of_data2, courfile2);
+                topscores(file3, number_of_data3, courfile3);
+                
             }
         }
     }
@@ -251,30 +257,7 @@ int student::getscore()
 }
 void topscores(student* file, int number_of_data, course cour)
 {
-    /*
-    for (int step = 0; step < number_of_data; ++step) {
-        
-        // compare array elements
-        for (int i = 0; i < number_of_data - step; ++i) {
-
-            // comparing the two adjacent elements
-            if (file[i].getscore() < file[i + 1].getscore()) {
-
-                // swap
-                int tempscore = file[i].getscore();
-                file[i].setscore(file[i + 1].getscore());
-                file[i + 1].setscore(tempscore);
-                int tempsid = file[i].getId();
-                file[i].setId(file[i + 1].getId());
-                file[i + 1].setId(tempsid);
-                string tempsname = file[i].getName();
-                file[i].setname(file[i + 1].getName());
-                file[i + 1].setname(tempsname);
-            }
-        }
-        
-    }
-    */
+    
     int first=3, second=2, third=1;
     for (int i = 0; i < number_of_data;i++)
     {
@@ -301,25 +284,36 @@ void topscores(student* file, int number_of_data, course cour)
    
        
         cout << "1. " << first << endl;
-        for(int i =0)
-        if(first == file[count].getscore())
+        for (int i = 0; i < number_of_data; i++)
         {
-            cout << "      " << file[count].getId() << "     " << file[count].getName() << endl;
+            if (first == file[i].getscore())
+            {
+                cout << "      " << file[i].getId() << "     " << file[i].getName() << endl;
+            }
         }
+        
         cout << "2. " << second << endl;
-        if (second == file[count].getscore())
+        for (int i = 0; i < number_of_data; i++)
         {
-            cout << "      " << file[count].getId() << "     " << file[count].getName() << endl;
+            if (second == file[i].getscore())
+            {
+                cout << "      " << file[i].getId() << "     " << file[i].getName() << endl;
+            }
         }
+      
         cout << "3. " << third << endl;
-        if (third == file[count].getscore())
+        for (int i = 0; i < number_of_data; i++)
         {
-            cout << "      " << file[count].getId() << "     " << file[count].getName() << endl;
+            if (third == file[i].getscore())
+            {
+                cout << "      " << file[i].getId() << "     " << file[i].getName() << endl;
+            }
         }
+       
     
 }
 
-void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3)
+void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3, course cour1, course cour2, course cour3)
 {
      
     int samestudent = 0;
@@ -334,13 +328,14 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
     }
     student* same = new student[biggestclass];
     //boolean values to check if there is an student that is the same
-    bool file2nd, file3rd;
+    bool file2nd = false;
+    bool file3rd = false;
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
         for (int j = 0; j < number_of_data2; j++)
         {
-            if (file->getName() == file2->getName())
+            if (file[i].getName() == file2[j].getName())
             {
                 file2nd = true;
             }
@@ -348,15 +343,15 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
         // checks third array
         for (int k = 0; k < number_of_data3; k++)
         {
-            if(file->getName() == file3->getName())
+            if(file[i].getName() == file3[k].getName())
             {
                 file3rd = true;
             }
         }
-        if ((file2nd = true) && (file3rd = true))
+        if ((file2nd == true) && (file3rd == true))
         {
-            same->setname(file->getName());
-            same->setId(file->getId()) ;
+            same[i].setname(file[i].getName());
+            same[i].setId(file[i].getId());
             samestudent++;
             file2nd = false;
             file3rd = false;
@@ -367,7 +362,7 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
     cout << "---------------------------------------------------------";
     for (int i = 0; i < samestudent; i++)
     {
-        cout << same->getId()<< "  " << same->getName() << endl;
+        cout << same[i].getId() << "  " << same[i].getName() << endl;
     }
 }
 
