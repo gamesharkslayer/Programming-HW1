@@ -18,24 +18,8 @@ public:
     int getId();
     string getName();
     int getscore();
-    /*
-    // Access writes file data to class data
-    void accessfile(char filename[20], int& number_of_data, student* file, course& filecour);
-    // Prints out the list of classes
-    void classlist(student x, int number_of_data, course& filecou);
-    //functions for finding students with the highest scores
-    friend void topscores(student file, int number_of_data, course cour);
-    //Function for finding students that taken two classes
-    friend void twoclass(student x, int number_of_data);
-    friend void twoclass(student x, student x2, int number_of_data, int number_of_data2);
-    friend void twoclass(student x, student x2, student x3, int number_of_data, int number_of_data2, int number_of_data3);
-    //Function for finding students that have taken all classes
-    friend void allclass(student file, int number_of_data);
-    friend void allclass(student file, student file2, int number_of_data, int number_of_data2);
-    friend void allclass(student file, student file2, student file3, int number_of_data, int number_of_data2, int number_of_data3);
-*/
+  
 private:
-    //Only one student per class
     int id;
     string name;
     int score;
@@ -53,6 +37,7 @@ void topscores(student* file, int number_of_data, course cour);
 void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3,course cour1,course cour2,course cour3);
 void allclass(student* file, student* file2, int number_of_data, int number_of_data2, course cour1, course cour2);
 void twoclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3, course cour1, course cour2, course cour3);
+void twoclass(student* file, student* file2, int number_of_data, int number_of_data2, course cour1, course cour2);
 int main()
 {
     // Initalises the needed variables
@@ -70,6 +55,7 @@ int main()
     cout << endl;
 
     ifstream infile;
+    //Decision based on the number of courses
     if (numberofcourses == 1)
     {
         
@@ -148,9 +134,9 @@ int main()
         cout << "Please Enter A valid filename or number of classes";
         return 0;
     }
-
-    int menunum = 1;
-    while (menunum > 0)
+    // Menu loop
+    int menunum = 0;
+    while (!(menunum == 5))
     {
         cout << "===== Menu ========" << endl;
         cout << "1. Show all course lists" << endl;
@@ -160,9 +146,10 @@ int main()
         cout << "5. Exit program" << endl;
         cout << "---> select: ";
         cin >> menunum;
-
+        // A decision tree that selects which menu to open
         if (menunum == 1)
         {
+            //Additional decision for different amount of courses
             if (numberofcourses == 1)
             {
                 
@@ -185,7 +172,7 @@ int main()
         {
             if (numberofcourses == 1)
             {
-
+                classlist(file1, number_of_data, courfile1);
             }
             if (numberofcourses == 2)
             {
@@ -201,7 +188,11 @@ int main()
         {
             if (numberofcourses == 1)
             {
-                cout << "There is only one class use menu 1 instead" << endl;
+                classlist(file1, number_of_data, courfile1);
+            }
+            if (numberofcourses == 2)
+            {
+                twoclass(file1, file2, number_of_data, number_of_data2, courfile1, courfile2);
             }
             if (numberofcourses == 3)
             {
@@ -235,6 +226,9 @@ int main()
     
     return 0;
 }
+/*
+* default Constructor that constructs a empty space for a student
+*/
 student::student()
 {
     id = 100;
@@ -242,41 +236,53 @@ student::student()
     name = "empty";
   
 }
+/*
+* Constructor that constructs a student class
+*/
 student::student(int i, string n, int s)
 {
     id = i;
     score = s;
     name = n;
 }
-
+//Sets the score based on parameter
 void student::setscore(int s)
 {
     score = s;
 }
+//Sets the Student ID based on parameter
 void student::setId(int i)
 {
     id = i;
 }
+//Sets the Student Name based on parameter
 void student::setname(string n)
 {
     name = n;
 }
+//Returns the value of the Student ID
 int student::getId()
 {
     return id;
 }
+//Returns the string student name
 string student::getName()
 {
     return name;
 }
+//Returns the test score
 int student::getscore()
 {
     return score;
 }
+/*
+* Parses through the student class to find the top three scores and prints out the students names id and scores
+*/
 void topscores(student* file, int number_of_data, course cour)
 {
     
     int first=3, second=2, third=1;
+    //For loop that searches for the highest score in the class
     for (int i = 0; i < number_of_data;i++)
     {
         if (file[i].getscore() > first)
@@ -405,7 +411,6 @@ void allclass(student* file, student* file2, int number_of_data, int number_of_d
         biggestclass = number_of_data2;
     }
     
-    student* same = new student[biggestclass];
     //boolean values to check if there is an student that is the same
     bool file2nd = false;
     bool file3rd = false;
@@ -461,7 +466,6 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
     {
         biggestclass = number_of_data3;
     }
-    student* same = new student[biggestclass];
     //boolean values to check if there is an student that is the same
     bool stucheck = false;
     bool stucheck2 = false;
@@ -508,12 +512,7 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
                         exist = true;
                         
                     }
-                    /*
-                    else
-                    {
-                        cout << file[i].getId() << "  " << file[i].getName() << " " << cour1.courname << "(" << file[i].getscore() << ") " << cour2.courname << "(" << file2[j].getscore() << ") " << endl;
-                    }
-                   */
+                 
                 }
                 
                 if (exist == false)
@@ -635,7 +634,55 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
     }
     
 }
+void twoclass(student* file, student* file2, int number_of_data, int number_of_data2, course cour1, course cour2)
+{
+    int samestudent = 0;
+    int biggestclass = number_of_data;
+    if (number_of_data < number_of_data2)
+    {
+        biggestclass = number_of_data2;
+    }
+   
+    
+    //boolean values to check if there is an student that is the same
+    bool stucheck = false;
+    bool stucheck2 = false;
+    bool stucheck3 = false;
+    for (int i = 0; i < number_of_data; i++)
+    {
+        // checks 2nd array for students
+        for (int j = 0; j < number_of_data2; j++)
+        {
+            if ((file[i].getName() == file2[j].getName()) && (file[i].getId() == file2[j].getId()))
+            {
+            samestudent++;
+                
+            }
 
+        }
+
+    }
+    bool exist = false;
+    cout << "There are " << samestudent << " students who take " << cour1.courname << " and " << cour2.courname << endl;
+    cout << "---------------------------------------------------------" << endl;
+    for (int i = 0; i < number_of_data; i++)
+    {
+        // checks 2nd array for students
+        for (int j = 0; j < number_of_data2; j++)
+        {
+            if ((file[i].getName() == file2[j].getName()) && (file[i].getId() == file2[j].getId()))
+            {
+                if (exist == false)
+                {
+                    cout << file[i].getId() << "  " << file[i].getName() << " " << cour1.courname << "(" << file[i].getscore() << ") " << cour2.courname << "(" << file2[j].getscore() << ") " << endl;
+
+                }
+
+            }
+
+        }
+    }
+}
 void classlist(student* file, int number_of_data, course& filecou)
 {
     cout << "Course:" << filecou.courname << endl;
@@ -684,14 +731,3 @@ student* accessfile(char filename[20], int& number_of_data, course& filecour)
     return file;
 }
 
-/* without hailey
-Enter filename : java.txt
-Enter filename : cpp.txt
-Enter filename : python.txt
-*/
-/*
-*/
-/* with hailey
-Enter filename : cpp.txt
-Enter filename : python.txt
-Enter filename : java.txt*/
