@@ -147,6 +147,7 @@ int main()
         cout << "---> select: ";
         cin >> menunum;
         // A decision tree that selects which menu to open
+        //show all courses
         if (menunum == 1)
         {
             //Additional decision for different amount of courses
@@ -167,7 +168,7 @@ int main()
                 classlist(file3, number_of_data3, courfile3);
             }
         }
-
+        // list of students who take all courses
         if (menunum == 2)
         {
             if (numberofcourses == 1)
@@ -183,7 +184,7 @@ int main()
                allclass(file1, file2, file3, number_of_data, number_of_data2, number_of_data3, courfile1, courfile2, courfile3);
             }
         }
-
+        // list of students who only take two courses
         if (menunum == 3)
         {
             if (numberofcourses == 1)
@@ -199,6 +200,7 @@ int main()
               twoclass(file1, file2, file3, number_of_data, number_of_data2, number_of_data3, courfile1, courfile2, courfile3);
             }
         }
+        // displays top three scores for each classes
         if (menunum == 4)
         {
             if (numberofcourses == 1)
@@ -336,21 +338,13 @@ void topscores(student* file, int number_of_data, course cour)
        
     
 }
-
+/*
+* Displays students that have taken all classes
+*/
 void allclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3, course cour1, course cour2, course cour3)
 {
      
     int samestudent = 0;
-    int biggestclass = number_of_data;
-    if (number_of_data < number_of_data2)
-    {
-        biggestclass = number_of_data2;
-    }
-    else if (number_of_data2 < number_of_data3)
-    {
-        biggestclass = number_of_data3;
-    }
-    student* same = new student[biggestclass];
     //boolean values to check if there is an student that is the same
     bool file2nd = false;
     bool file3rd = false;
@@ -400,21 +394,19 @@ void allclass(student* file, student* file2, student* file3, int number_of_data,
     }
     
 }
-
+/*
+* Displays students that have taken all classes for 2 courses
+*/
 void allclass(student* file, student* file2, int number_of_data, int number_of_data2, course cour1, course cour2)
 {
-
+    // Counter for the amount of students
     int samestudent = 0;
-    int biggestclass = number_of_data;
-    if (number_of_data < number_of_data2)
-    {
-        biggestclass = number_of_data2;
-    }
+   
     
     //boolean values to check if there is an student that is the same
     bool file2nd = false;
     bool file3rd = false;
- 
+    //Counts for the number of same students
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
@@ -432,6 +424,7 @@ void allclass(student* file, student* file2, int number_of_data, int number_of_d
         }
 
     }
+    //Outputs the students that take all courses
     cout << "There are " << samestudent << " students who take all courses" << endl;
     cout << "---------------------------------------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
@@ -456,20 +449,16 @@ void allclass(student* file, student* file2, int number_of_data, int number_of_d
 void twoclass(student* file, student* file2, student* file3, int number_of_data, int number_of_data2, int number_of_data3, course cour1, course cour2, course cour3)
 {
 
+    //counts the students take two classes
     int samestudent = 0;
+    // use the biggest class
     int biggestclass = number_of_data;
-    if (number_of_data < number_of_data2)
-    {
-        biggestclass = number_of_data2;
-    }
-    else if (number_of_data2 < number_of_data3)
-    {
-        biggestclass = number_of_data3;
-    }
+    
     //boolean values to check if there is an student that is the same
     bool stucheck = false;
     bool stucheck2 = false;
     bool stucheck3 = false;
+    //Checks for students that take two classes for course 1 and 2
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
@@ -494,7 +483,9 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
         }
 
     }
+    //checks for students that take two classes
     bool exist = false;
+    // outputs the two students for course 1 and 2
     cout << "There are " << samestudent << " students who take "<< cour1.courname << " and " << cour2.courname << endl;
     cout << "---------------------------------------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
@@ -525,6 +516,7 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
 
         }
     }
+    //Checks for students that takes two classes for courses 1 and 3
     int samestudent2 = 0;
     for (int i = 0; i < number_of_data; i++)
     {
@@ -549,7 +541,7 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
             }
         }
     }
-
+    // outputs the students that take course 1 and 3
     cout << "There are " << samestudent2 << " students who take " << cour1.courname << " and " << cour3.courname << endl;
     cout << "---------------------------------------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
@@ -578,7 +570,7 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
 
         }
     }
-
+    //Checks for students take courses 2 and three
     int samestudent3 = 0;
     for (int i = 0; i < number_of_data2; i++)
     {
@@ -602,7 +594,7 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
             }
         }
     }
-    
+    // Outputs the students that takes courses 2 and 3
     cout << "There are " << samestudent3 << " students who take " << cour2.courname << " and " << cour3.courname << endl;
     cout << "---------------------------------------------------------" << endl;
     for (int i = 0; i < number_of_data2; i++)
@@ -634,20 +626,12 @@ void twoclass(student* file, student* file2, student* file3, int number_of_data,
     }
     
 }
+//Checks for students takes two classes overload for two number of courses
 void twoclass(student* file, student* file2, int number_of_data, int number_of_data2, course cour1, course cour2)
 {
+    // checks for students that take only twoclasses
     int samestudent = 0;
-    int biggestclass = number_of_data;
-    if (number_of_data < number_of_data2)
-    {
-        biggestclass = number_of_data2;
-    }
-   
-    
-    //boolean values to check if there is an student that is the same
-    bool stucheck = false;
-    bool stucheck2 = false;
-    bool stucheck3 = false;
+    // Checks for the amount of students that take the same class
     for (int i = 0; i < number_of_data; i++)
     {
         // checks 2nd array for students
@@ -663,6 +647,8 @@ void twoclass(student* file, student* file2, int number_of_data, int number_of_d
 
     }
     bool exist = false;
+
+    //Outputs the students that take the same class
     cout << "There are " << samestudent << " students who take " << cour1.courname << " and " << cour2.courname << endl;
     cout << "---------------------------------------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
@@ -683,8 +669,10 @@ void twoclass(student* file, student* file2, int number_of_data, int number_of_d
         }
     }
 }
+//Displays the students that take the course from the file
 void classlist(student* file, int number_of_data, course& filecou)
 {
+    //Outputs the list of students from the student array
     cout << "Course:" << filecou.courname << endl;
     cout << "-----------------------------" << endl;
     for (int i = 0; i < number_of_data; i++)
@@ -694,25 +682,30 @@ void classlist(student* file, int number_of_data, course& filecou)
     cout << "======================" << endl;
     
 }
+// Access the file and inputs data into the array
 student* accessfile(char filename[20], int& number_of_data, course& filecour)
 {
+    //creates a new array
     student* file;
-
+    // creates a array size from the number of data 
     file = new student[number_of_data];
+    //checks if the file is opened
     ifstream infile;
     infile.open(filename);
     if (infile.fail()) { // checks for file opening
         cout << "Input file opening filed." << endl;
         exit(1);
     }
-
+    // creates temp variables
     string tempclass;
     int temp;
 
     infile >> tempclass >> temp;
+    // assigns the course name
     filecour.courname = tempclass;
-    
+    // keeps track of the number of loops
     int i = 0;
+    // varibles to hold the id and score as well as name
     int idfile, scorefile;
     string namefile;
     while (!infile.eof())
@@ -727,7 +720,7 @@ student* accessfile(char filename[20], int& number_of_data, course& filecour)
     }
     number_of_data = i;
     
-
+    // returns the new file array
     return file;
 }
 
